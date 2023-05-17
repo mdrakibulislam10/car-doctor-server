@@ -19,7 +19,10 @@ const client = new MongoClient(uri, {
         version: ServerApiVersion.v1,
         strict: true,
         deprecationErrors: true,
-    }
+    },
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+    // maxPoolSize: 10,
 });
 
 // get token from client;
@@ -46,10 +49,19 @@ const verifyJWT = (req, res, next) => { // app.get(..) e ei func call er pore th
     })
 };
 
+//
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
+        // await client.connect();
+        client.connect();
+        // client.connect(err => {
+        //     if (err) {
+        //         console.error(err);
+        //         return;
+        //     }
+        // })
+
 
         const servicesCollection = client.db("carDoctor").collection("services");
         const bookingCollection = client.db("carDoctor").collection("bookings"); // another collection; ekta datar collection er moddhe arekta dhukai dile bekhappa hoye jabe, ager collection er datagulo jodi UI te dekhai tahole onno type er data gulo o UI te hsow korbe tai arekta collection banate pari arki.
